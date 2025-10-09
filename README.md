@@ -19,31 +19,72 @@ The UAS Admin Panel transforms fragmented command-line intensive processes into 
 ### Prerequisites
 
 - Node.js 18.x or higher
-- npm or yarn package manager
+- npm, yarn, or pnpm package manager
 - VS Code (for editor integration features)
-- Local model server running (optional, for full functionality)
+- Local UAS backend server (see backend setup below)
 
 ### Installation
 
 \`\`\`bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/zombiecoder1/comprehensive-documentation-admin-panel-development
 cd uas-admin-panel
 
 # Install dependencies
 npm install
+# or
+pnpm install
 
 # Copy environment template
 cp .env.example .env.local
 
 # Configure your environment variables (see CONFIGURATION.md)
+# Edit .env.local with your settings
 nano .env.local
+\`\`\`
 
-# Run development server
+### Configuration
+
+Minimum required environment variables in `.env.local`:
+
+\`\`\`bash
+# Required for M1
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+UAS_API_URL=http://localhost:5000
+UAS_API_KEY=changeme
+\`\`\`
+
+See [CONFIGURATION.md](./CONFIGURATION.md) for complete configuration options.
+
+### Running the Application
+
+\`\`\`bash
+# Development mode
 npm run dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
+
+# Run linting
+npm run lint
+
+# Run type checking
+npm run type-check
 \`\`\`
 
 Visit `http://localhost:3000` to access the admin panel.
+
+### Backend Setup
+
+The admin panel requires a UAS backend server. Ensure your backend implements these endpoints:
+
+- `GET /health` - Server health status
+- `GET /status` - System status with models and agents info
+
+See [API.md](./API.md) for complete API documentation.
 
 ## 📋 Core Features
 
@@ -118,23 +159,34 @@ Visit `http://localhost:3000` to access the admin panel.
 \`\`\`
 uas-admin-panel/
 ├── app/                      # Next.js app directory
-│   ├── dashboard/           # Main dashboard
-│   ├── agents/              # Agent management
-│   ├── monitoring/          # Performance monitoring
-│   ├── config/              # Configuration pages
-│   └── tools/               # Developer tools
+│   ├── page.tsx             # Dashboard home
+│   ├── layout.tsx           # Root layout with navigation
+│   ├── globals.css          # Global styles and theme
+│   ├── api/                 # API routes
+│   │   └── proxy/           # Backend proxy endpoints
+│   ├── models/              # Model management pages
+│   ├── agents/              # Agent management pages
+│   ├── memory/              # Memory agent pages
+│   ├── loadbalancer/        # Load balancer pages
+│   ├── prompt-templates/    # Prompt template editor
+│   ├── cli-agent/           # CLI agent interface
+│   ├── audio-test/          # Audio testing page
+│   ├── mobile-editor/       # Mobile editor API page
+│   └── settings/            # Settings pages
 ├── components/              # React components
 │   ├── ui/                  # shadcn/ui components
-│   ├── dashboard/           # Dashboard-specific components
-│   ├── agents/              # Agent-related components
-│   └── shared/              # Shared components
+│   ├── sidebar.tsx          # Navigation sidebar
+│   ├── topbar.tsx           # Top navigation bar
+│   ├── server-health-card.tsx
+│   ├── system-status-card.tsx
+│   └── quick-actions-card.tsx
 ├── lib/                     # Utility functions
-│   ├── api/                 # API client functions
-│   ├── config/              # Configuration loaders
-│   └── utils/               # Helper utilities
+│   └── utils.ts             # Helper utilities
 ├── hooks/                   # Custom React hooks
 ├── types/                   # TypeScript type definitions
-└── public/                  # Static assets
+├── public/                  # Static assets
+├── .env.example             # Environment variables template
+└── README.md                # This file
 \`\`\`
 
 ## 🤝 Contributing
@@ -148,6 +200,36 @@ Please read [DEVELOPMENT.md](./DEVELOPMENT.md) for development guidelines and be
 ## 🆘 Support
 
 For issues, questions, or contributions, please open an issue in the repository.
+
+## 🎯 Milestones
+
+### M1: Core Infrastructure & Dashboard (Current)
+- ✅ Next.js skeleton with TypeScript and Tailwind CSS
+- ✅ Topbar and sidebar navigation
+- ✅ Environment loader with .env support
+- ✅ Health and status cards on dashboard
+- ✅ API proxy endpoints for backend communication
+- ✅ Dark theme matching Vercel design aesthetic
+
+### M2: Models & Agents Pages (Next)
+- Models page with list and metrics
+- Agents page with list and command interface
+- Real-time status updates
+
+### M3: Memory, Chat Stream & Prompt Editor
+- Memory page with conversation history
+- Chat streaming with SSE support
+- Prompt templates CRUD interface
+
+### M4: Editor Integration, CLI Agent & Load Balancer
+- VS Code editor integration
+- CLI agent streaming UI
+- Load balancer instance management
+
+### M5: Audio Test, Mobile Editor & Polish
+- Audio chat testing interface
+- Mobile editor API configuration
+- Final polish and comprehensive testing
 
 ---
 
