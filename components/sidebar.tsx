@@ -14,6 +14,12 @@ import {
   Smartphone,
   Settings,
   Code2,
+  BookOpen,
+  Cloud,
+  MessageSquare,
+  Lightbulb,
+  CheckSquare,
+  Music,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -28,6 +34,12 @@ const navigation = [
   { name: "Editor Integration", href: "/editor-integration", icon: Code2 },
   { name: "Audio Test", href: "/audio-test", icon: Mic },
   { name: "Mobile Editor", href: "/mobile-editor", icon: Smartphone },
+  { name: "Terminal Commands", href: "/terminal-commands", icon: BookOpen },
+  { name: "Cloud Providers", href: "/providers", icon: Cloud },
+  { name: "AI Chat", href: "/chat", icon: MessageSquare },
+  { name: "Project Ideas", href: "/project-ideas", icon: Lightbulb },
+  { name: "Todo List", href: "/todo", icon: CheckSquare },
+  { name: "Music Player", href: "/music", icon: Music },
   { name: "Settings", href: "/settings", icon: Settings },
 ]
 

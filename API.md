@@ -12,6 +12,12 @@ Complete API reference for the UAS Admin Panel.
 6. [Load Balancer API](#load-balancer-api)
 7. [Memory Agent API](#memory-agent-api)
 8. [WebSocket API](#websocket-api)
+9. [Terminal Commands API](#terminal-commands-api)
+10. [Cloud Providers API](#cloud-providers-api)
+11. [Chat API](#chat-api)
+12. [Project Ideas API](#project-ideas-api)
+13. [Todo API](#todo-api)
+14. [Music API](#music-api)
 
 ---
 
@@ -652,6 +658,607 @@ Unsubscribe from events.
 {
   "type": "unsubscribe",
   "events": ["logs.new"]
+}
+\`\`\`
+
+---
+
+## Terminal Commands API
+
+### Get All Commands
+
+Get list of all terminal commands.
+
+**Endpoint**: `GET /api/terminal-commands`
+
+**Query Parameters**:
+- `category`: Filter by category (optional)
+- `search`: Search query (optional)
+
+**Response**:
+\`\`\`json
+{
+  "commands": [
+    {
+      "id": 1,
+      "category": "System",
+      "command": "ls -la",
+      "description": "List all files with details",
+      "usageCount": 45,
+      "createdAt": "2025-01-10T12:00:00Z",
+      "updatedAt": "2025-01-10T12:00:00Z"
+    }
+  ],
+  "total": 150
+}
+\`\`\`
+
+### Add Command
+
+Add a new terminal command.
+
+**Endpoint**: `POST /api/terminal-commands`
+
+**Request Body**:
+\`\`\`json
+{
+  "category": "System",
+  "command": "ps aux",
+  "description": "Show all running processes"
+}
+\`\`\`
+
+**Response**:
+\`\`\`json
+{
+  "success": true,
+  "command": {
+    "id": 2,
+    "category": "System",
+    "command": "ps aux",
+    "description": "Show all running processes",
+    "usageCount": 0
+  }
+}
+\`\`\`
+
+### Update Command
+
+Update an existing command.
+
+**Endpoint**: `PUT /api/terminal-commands/[id]`
+
+**Request Body**:
+\`\`\`json
+{
+  "category": "System",
+  "command": "ps aux | grep node",
+  "description": "Show Node.js processes"
+}
+\`\`\`
+
+**Response**:
+\`\`\`json
+{
+  "success": true,
+  "message": "Command updated successfully"
+}
+\`\`\`
+
+### Delete Command
+
+Delete a command.
+
+**Endpoint**: `DELETE /api/terminal-commands/[id]`
+
+**Response**:
+\`\`\`json
+{
+  "success": true,
+  "message": "Command deleted successfully"
+}
+\`\`\`
+
+### Increment Usage Count
+
+Increment usage count when command is copied.
+
+**Endpoint**: `POST /api/terminal-commands/[id]/use`
+
+**Response**:
+\`\`\`json
+{
+  "success": true,
+  "usageCount": 46
+}
+\`\`\`
+
+---
+
+## Cloud Providers API
+
+### Get All Providers
+
+Get list of all cloud providers.
+
+**Endpoint**: `GET /api/providers`
+
+**Response**:
+\`\`\`json
+{
+  "providers": [
+    {
+      "id": 1,
+      "name": "OpenAI",
+      "endpoint": "https://api.openai.com/v1",
+      "status": "active",
+      "fallbackConfig": {
+        "enabled": true,
+        "fallbackTo": "anthropic"
+      },
+      "cacheSettings": {
+        "enabled": true,
+        "ttl": 3600
+      },
+      "costTracking": {
+        "totalCost": 125.50,
+        "requestCount": 1500
+      },
+      "createdAt": "2025-01-10T12:00:00Z"
+    }
+  ]
+}
+\`\`\`
+
+### Add Provider
+
+Add a new cloud provider.
+
+**Endpoint**: `POST /api/providers`
+
+**Request Body**:
+\`\`\`json
+{
+  "name": "Anthropic",
+  "endpoint": "https://api.anthropic.com",
+  "apiKey": "sk-ant-...",
+  "fallbackConfig": {
+    "enabled": false
+  },
+  "cacheSettings": {
+    "enabled": true,
+    "ttl": 1800
+  }
+}
+\`\`\`
+
+**Response**:
+\`\`\`json
+{
+  "success": true,
+  "provider": {
+    "id": 2,
+    "name": "Anthropic",
+    "status": "inactive"
+  }
+}
+\`\`\`
+
+### Update Provider
+
+Update provider configuration.
+
+**Endpoint**: `PUT /api/providers/[id]`
+
+**Request Body**:
+\`\`\`json
+{
+  "endpoint": "https://api.anthropic.com/v1",
+  "status": "active"
+}
+\`\`\`
+
+**Response**:
+\`\`\`json
+{
+  "success": true,
+  "message": "Provider updated successfully"
+}
+\`\`\`
+
+### Delete Provider
+
+Delete a provider.
+
+**Endpoint**: `DELETE /api/providers/[id]`
+
+**Response**:
+\`\`\`json
+{
+  "success": true,
+  "message": "Provider deleted successfully"
+}
+\`\`\`
+
+### Test Provider
+
+Test provider connection.
+
+**Endpoint**: `POST /api/providers/[id]/test`
+
+**Response**:
+\`\`\`json
+{
+  "success": true,
+  "responseTime": 250,
+  "status": "healthy"
+}
+\`\`\`
+
+---
+
+## Chat API
+
+### Send Message
+
+Send a message to the AI chat.
+
+**Endpoint**: `POST /api/chat/message`
+
+**Request Body**:
+\`\`\`json
+{
+  "message": "Hello, how are you?",
+  "conversationId": "conv-123",
+  "audioEnabled": false
+}
+\`\`\`
+
+**Response**:
+\`\`\`json
+{
+  "success": true,
+  "response": {
+    "message": "I'm doing well, thank you!",
+    "conversationId": "conv-123",
+    "audioUrl": null
+  }
+}
+\`\`\`
+
+### Get Chat History
+
+Get conversation history.
+
+**Endpoint**: `GET /api/chat/history`
+
+**Query Parameters**:
+- `conversationId`: Conversation ID (optional)
+- `limit`: Number of messages (default: 50)
+
+**Response**:
+\`\`\`json
+{
+  "messages": [
+    {
+      "id": 1,
+      "role": "user",
+      "content": "Hello",
+      "timestamp": "2025-01-10T12:00:00Z"
+    },
+    {
+      "id": 2,
+      "role": "assistant",
+      "content": "Hi there!",
+      "timestamp": "2025-01-10T12:00:01Z"
+    }
+  ],
+  "conversationId": "conv-123"
+}
+\`\`\`
+
+### Generate Audio Response
+
+Generate audio from text response.
+
+**Endpoint**: `POST /api/chat/audio`
+
+**Request Body**:
+\`\`\`json
+{
+  "text": "Hello, how can I help you?",
+  "voice": "alloy",
+  "speed": 1.0
+}
+\`\`\`
+
+**Response**:
+\`\`\`json
+{
+  "success": true,
+  "audioUrl": "/audio/response-123.mp3",
+  "duration": 3.5
+}
+\`\`\`
+
+---
+
+## Project Ideas API
+
+### Generate Project Idea
+
+Generate project ideas based on input.
+
+**Endpoint**: `POST /api/project-ideas/generate`
+
+**Request Body**:
+\`\`\`json
+{
+  "input": "I want to build a task management app",
+  "includeAudio": true
+}
+\`\`\`
+
+**Response**:
+\`\`\`json
+{
+  "success": true,
+  "idea": {
+    "title": "Smart Task Manager",
+    "description": "A task management app with AI-powered prioritization...",
+    "features": ["Task creation", "AI prioritization", "Team collaboration"],
+    "techStack": ["Next.js", "PostgreSQL", "OpenAI"],
+    "audioUrl": "/audio/idea-123.mp3"
+  }
+}
+\`\`\`
+
+### Export Documentation
+
+Export project documentation.
+
+**Endpoint**: `POST /api/project-ideas/export`
+
+**Request Body**:
+\`\`\`json
+{
+  "ideaId": "idea-123",
+  "format": "pdf"
+}
+\`\`\`
+
+**Response**:
+\`\`\`json
+{
+  "success": true,
+  "downloadUrl": "/exports/project-idea-123.pdf"
+}
+\`\`\`
+
+---
+
+## Todo API
+
+### Get All Tasks
+
+Get all todo tasks.
+
+**Endpoint**: `GET /api/todo`
+
+**Query Parameters**:
+- `priority`: Filter by priority (optional)
+- `status`: Filter by status (optional)
+
+**Response**:
+\`\`\`json
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Complete project proposal",
+      "description": "Write and submit the Q1 project proposal",
+      "priority": "high",
+      "status": "pending",
+      "dueDate": "2025-01-15T17:00:00Z",
+      "reminder": {
+        "enabled": true,
+        "time": "2025-01-15T16:00:00Z",
+        "audioEnabled": true
+      },
+      "createdAt": "2025-01-10T12:00:00Z"
+    }
+  ]
+}
+\`\`\`
+
+### Add Task
+
+Add a new task.
+
+**Endpoint**: `POST /api/todo`
+
+**Request Body**:
+\`\`\`json
+{
+  "title": "Review code changes",
+  "description": "Review PR #123",
+  "priority": "medium",
+  "dueDate": "2025-01-16T10:00:00Z",
+  "reminder": {
+    "enabled": true,
+    "time": "2025-01-16T09:00:00Z",
+    "audioEnabled": true
+  }
+}
+\`\`\`
+
+**Response**:
+\`\`\`json
+{
+  "success": true,
+  "task": {
+    "id": 2,
+    "title": "Review code changes",
+    "status": "pending"
+  }
+}
+\`\`\`
+
+### Update Task
+
+Update a task.
+
+**Endpoint**: `PUT /api/todo/[id]`
+
+**Request Body**:
+\`\`\`json
+{
+  "status": "completed"
+}
+\`\`\`
+
+**Response**:
+\`\`\`json
+{
+  "success": true,
+  "message": "Task updated successfully"
+}
+\`\`\`
+
+### Delete Task
+
+Delete a task.
+
+**Endpoint**: `DELETE /api/todo/[id]`
+
+**Response**:
+\`\`\`json
+{
+  "success": true,
+  "message": "Task deleted successfully"
+}
+\`\`\`
+
+---
+
+## Music API
+
+### Get Music Library
+
+Get all songs in the music library.
+
+**Endpoint**: `GET /api/music`
+
+**Query Parameters**:
+- `mood`: Filter by mood (optional)
+- `format`: Filter by format (audio/video) (optional)
+
+**Response**:
+\`\`\`json
+{
+  "songs": [
+    {
+      "id": 1,
+      "youtubeUrl": "https://youtube.com/watch?v=...",
+      "title": "Song Title",
+      "artist": "Artist Name",
+      "mood": "happy",
+      "duration": 240,
+      "format": "audio",
+      "createdAt": "2025-01-10T12:00:00Z"
+    }
+  ]
+}
+\`\`\`
+
+### Add Song
+
+Add a song to the library.
+
+**Endpoint**: `POST /api/music`
+
+**Request Body**:
+\`\`\`json
+{
+  "youtubeUrl": "https://youtube.com/watch?v=...",
+  "title": "New Song",
+  "artist": "Artist",
+  "mood": "energetic",
+  "format": "audio"
+}
+\`\`\`
+
+**Response**:
+\`\`\`json
+{
+  "success": true,
+  "song": {
+    "id": 2,
+    "title": "New Song",
+    "duration": 180
+  }
+}
+\`\`\`
+
+### Delete Song
+
+Delete a song from the library.
+
+**Endpoint**: `DELETE /api/music/[id]`
+
+**Response**:
+\`\`\`json
+{
+  "success": true,
+  "message": "Song deleted successfully"
+}
+\`\`\`
+
+### Get Playlists
+
+Get all playlists.
+
+**Endpoint**: `GET /api/music/playlists`
+
+**Response**:
+\`\`\`json
+{
+  "playlists": [
+    {
+      "id": 1,
+      "name": "Happy Songs",
+      "mood": "happy",
+      "songCount": 12,
+      "createdAt": "2025-01-10T12:00:00Z"
+    }
+  ]
+}
+\`\`\`
+
+### Create Playlist
+
+Create a new playlist.
+
+**Endpoint**: `POST /api/music/playlists`
+
+**Request Body**:
+\`\`\`json
+{
+  "name": "Work Focus",
+  "mood": "focus",
+  "songIds": [1, 2, 3]
+}
+\`\`\`
+
+**Response**:
+\`\`\`json
+{
+  "success": true,
+  "playlist": {
+    "id": 2,
+    "name": "Work Focus",
+    "songCount": 3
+  }
 }
 \`\`\`
 
