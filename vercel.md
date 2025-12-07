@@ -31,7 +31,7 @@ This document outlines the requirements for enhancing an existing **Next.js-base
 
 **UI Layout:**
 
-```
+\`\`\`
 ┌─────────────────────────────────────────┐
 │ Terminal Commands Management            │
 ├─────────────────────────────────────────┤
@@ -45,7 +45,7 @@ This document outlines the requirements for enhancing an existing **Next.js-base
 │ │ • Security  │ │ └─────────────────┘ │ │
 │ └─────────────┘ └─────────────────────┘ │
 └─────────────────────────────────────────┘
-```
+\`\`\`
 
 ### 2. **Cloud Providers Page** (`/providers`)
 
@@ -63,7 +63,7 @@ This document outlines the requirements for enhancing an existing **Next.js-base
 
 **UI Layout:**
 
-```
+\`\`\`
 ┌─────────────────────────────────────────┐
 │ Cloud Providers Management              │
 ├─────────────────────────────────────────┤
@@ -82,7 +82,7 @@ This document outlines the requirements for enhancing an existing **Next.js-base
 │ │ [Edit] [Test] [Enable] [Delete]    │ │
 │ └─────────────────────────────────────┘ │
 └─────────────────────────────────────────┘
-```
+\`\`\`
 
 ### 3. **AI Chat Interface** (`/chat`)
 
@@ -100,7 +100,7 @@ This document outlines the requirements for enhancing an existing **Next.js-base
 
 **UI Layout:**
 
-```
+\`\`\`
 ┌─────────────────────────────────────────┐
 │ AI Assistant Chat                       │
 ├─────────────────────────────────────────┤
@@ -112,7 +112,7 @@ This document outlines the requirements for enhancing an existing **Next.js-base
 ├─────────────────────────────────────────┤
 │ [🎤 Voice] [Type message...] [Send]     │
 └─────────────────────────────────────────┘
-```
+\`\`\`
 
 ### 4. **Project Ideas & Documentation** (`/project-ideas`)
 
@@ -129,7 +129,7 @@ This document outlines the requirements for enhancing an existing **Next.js-base
 
 **UI Layout:**
 
-```
+\`\`\`
 ┌─────────────────────────────────────────┐
 │ Project Ideas & Documentation           │
 ├─────────────────────────────────────────┤
@@ -143,7 +143,7 @@ This document outlines the requirements for enhancing an existing **Next.js-base
 │ │ [🔊 Listen] [Save] [Share]          │ │
 │ └─────────────────────────────────────┘ │
 └─────────────────────────────────────────┘
-```
+\`\`\`
 
 ### 5. **Todo List & Reminders** (`/todo`)
 
@@ -161,7 +161,7 @@ This document outlines the requirements for enhancing an existing **Next.js-base
 
 **UI Layout:**
 
-```
+\`\`\`
 ┌─────────────────────────────────────────┐
 │ Todo List & Reminders                   │
 ├─────────────────────────────────────────┤
@@ -178,7 +178,7 @@ This document outlines the requirements for enhancing an existing **Next.js-base
 │ │ ⏰ Due: Tomorrow 10:00 AM [🔊]      │ │
 │ └─────────────────────────────────────┘ │
 └─────────────────────────────────────────┘
-```
+\`\`\`
 
 ### 6. **Music Player** (`/music`)
 
@@ -197,7 +197,7 @@ This document outlines the requirements for enhancing an existing **Next.js-base
 
 **UI Layout:**
 
-```
+\`\`\`
 ┌─────────────────────────────────────────┐
 │ Music Player                            │
 ├─────────────────────────────────────────┤
@@ -217,7 +217,7 @@ This document outlines the requirements for enhancing an existing **Next.js-base
 │ │ • Relax (15)                        │ │
 │ └─────────────────────────────────────┘ │
 └─────────────────────────────────────────┘
-```
+\`\`\`
 
 ---
 
@@ -227,7 +227,7 @@ This document outlines the requirements for enhancing an existing **Next.js-base
 
 **Terminal Commands Table:**
 
-```sql
+\`\`\`sql
 CREATE TABLE terminal_commands (
   id INT PRIMARY KEY AUTO_INCREMENT,
   category VARCHAR(100) NOT NULL,
@@ -237,11 +237,11 @@ CREATE TABLE terminal_commands (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-```
+\`\`\`
 
 **Providers Table:**
 
-```sql
+\`\`\`sql
 CREATE TABLE providers (
   id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(100) NOT NULL,
@@ -253,11 +253,11 @@ CREATE TABLE providers (
   status ENUM('active', 'inactive', 'degraded') DEFAULT 'inactive',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-```
+\`\`\`
 
 **Music Library Table:**
 
-```sql
+\`\`\`sql
 CREATE TABLE music_library (
   id INT PRIMARY KEY AUTO_INCREMENT,
   youtube_url VARCHAR(500) NOT NULL,
@@ -268,11 +268,11 @@ CREATE TABLE music_library (
   format ENUM('audio', 'video') DEFAULT 'audio',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-```
+\`\`\`
 
 ### API Endpoints Required
 
-```typescript
+\`\`\`typescript
 // Terminal Commands
 GET    /api/terminal-commands          // Get all commands
 POST   /api/terminal-commands          // Add new command
@@ -303,13 +303,13 @@ POST   /api/music                      // Add song
 DELETE /api/music/[id]                 // Remove song
 GET    /api/music/playlists            // Get playlists
 POST   /api/music/playlists            // Create playlist
-```
+\`\`\`
 
 ### Environment Configuration
 
 Add to `.env.local`:
 
-```bash
+\`\`\`bash
 # Database
 DATABASE_URL=mysql://username:password@localhost:3306/admin_panel
 DB_HOST=localhost
@@ -327,7 +327,7 @@ YOUTUBE_API_KEY=your_youtube_api_key
 
 # Music Storage
 MUSIC_STORAGE_PATH=./public/music
-```
+\`\`\`
 
 ---
 

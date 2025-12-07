@@ -334,4 +334,4 @@ For issues, questions, or contributions, please open an issue in the repository.
 **Built with care for streamlined local development workflows**
 \`\`\`
 
-```md file="" isHidden
+\`\`\`md file="" isHidden

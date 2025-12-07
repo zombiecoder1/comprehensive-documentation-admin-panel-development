@@ -91,13 +91,13 @@
 ## 🔗 লোকাল সার্ভারের সাথে সংযোগ
 
 ### বর্তমান API এন্ডপয়েন্টসমূহ:
-```
+\`\`\`
 GET  /api/proxy/health          → UAS_API_URL/health
 GET  /api/proxy/status          → UAS_API_URL/status
 POST /api/proxy/cli-agent/execute → CLI_AGENT_URL
 GET  /api/proxy/memory/conversations → MEMORY_AGENT_URL
 POST /api/proxy/editor/send     → VSCODE_API_URL
-```
+\`\`\`
 
 ### আপনার গেটওয়ে এন্ডপয়েন্ট যোগ করলে:
 ✅ **হ্যাঁ, কাজ করবে** - যদি আপনি:
@@ -114,11 +114,11 @@ POST /api/proxy/editor/send     → VSCODE_API_URL
 - ✅ **MySQL যোগ করা যাবে** - কোনো জটিলতা নেই
 
 ### MySQL যোগ করার জন্য:
-```bash
+\`\`\`bash
 npm install mysql2
 # অথবা
 npm install prisma @prisma/client
-```
+\`\`\`
 
 ### প্রয়োজনীয় পরিবর্তন:
 1. `package.json` এ MySQL driver যোগ
